@@ -18,4 +18,4 @@ Steps to set up
 
 8. Run this command to create the persistent postgres volume -- docker volume create pgdata
 
-When dependencies change, run npm install in the folder where package.json is located. node_modules is mounted inside the container, so the changes will be immediately reflected
+When dependencies change, you will need to run docker-compose up --build

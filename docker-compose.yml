@@ -1,18 +1,29 @@
 version: "3"
 services:
 
-  node-react:
-    container_name: node-react
+  react:
+    container_name: react
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./client
+      dockerfile: react-dockerfile
     volumes:
-      - '.:/app'
+      - './client:/app'
       - '/app/node_modules'
     ports:
       - '3001:3000'
     environment:
       - NODE_ENV=development
+
+  node:
+    container_name: node
+    build:
+      context: ./server
+      dockerfile: node-dockerfile
+    volumes:
+      - './server:/app'
+      - '/app/node_modules'
+    ports:
+      - '4001:4000'
 
   database:
     container_name: postgres

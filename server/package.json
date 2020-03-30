@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "express": "4.15.3",
-    "pg": "6.2.5"
+    "pg": "6.2.5",
+    "cors": "2.8.5"
   },
   "scripts": {
     "start": "node App.js"

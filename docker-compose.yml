@@ -1,8 +1,9 @@
+
 version: "3"
 services:
 
   react:
-    container_name: react
+    container_name: stonkreact
     build:
       context: ./client
       dockerfile: react-dockerfile
@@ -13,9 +14,12 @@ services:
       - '3001:3000'
     environment:
       - NODE_ENV=development
+    networks:
+      stonknet:
+        ipv4_address: 172.28.1.1
 
   node:
-    container_name: node
+    container_name: stonknode
     build:
       context: ./server
       dockerfile: node-dockerfile
@@ -23,10 +27,13 @@ services:
       - './server:/app'
       - '/app/node_modules'
     ports:
-      - '4001:4000'
+      - '4001:4001'
+    networks:
+      stonknet:
+        ipv4_address: 172.28.1.2
 
   database:
-    container_name: postgres
+    container_name: stonkdb
     image: "postgres:12"
     environment:
       POSTGRES_PASSWORD: postgres
@@ -36,6 +43,15 @@ services:
       - pgdata:/var/lib/postgresql/data/
     ports:
       - '5432:5432'
+    networks:
+      stonknet:
+        ipv4_address: 172.28.1.3
   
 volumes:
   pgdata:
+
+networks:
+  stonknet:
+    ipam:     
+      config:
+        - subnet: "172.28.0.0/16"
